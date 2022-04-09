@@ -6,6 +6,7 @@ import Register from './pages/Register'
 
 function App() {
 	const [userName, setName]=useState('')
+	const [email, setEmail]=useState('')
 	const [password, setPassword]=useState('')
 
 	async function Register(event) {
