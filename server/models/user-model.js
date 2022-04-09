@@ -1,8 +1,8 @@
 // new RW
 
-var mongoose = require(&#8216;mongoose&#8217;),
+var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require(&#8216;bcrypt&#8217;),
+    bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({
