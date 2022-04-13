@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { allUsers } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 
 import Userlist from '../components/Userlist';
@@ -9,17 +10,28 @@ import Userlist from '../components/Userlist';
 const Home = () => {
     const nav = useNavigate()
 
+    const [showMenu, setShowMenu] = useState(false);
+    const [users, setUsers] = useState([]);
+
     useEffect(() => {if (!localStorage.getItem('loggedInUser')) {
         nav('/');
     }}, []);
 
-    const [showMenu, setShowMenu] = useState(false);
+    useEffect(async () => {
+        const {data} = await axios.get(`${allUsers}`);
+        setUsers(data);
+        // console.log(data);
+    })
+
+    console.log(users);
 
     let navMenu
 
     if(showMenu) {
-        navMenu = <div><Userlist /></div>
+        navMenu = <div><Userlist users={users}/></div>
     }    
+
+
     return (
         <div id='container'>
             {/* <div id='sidebar'>
