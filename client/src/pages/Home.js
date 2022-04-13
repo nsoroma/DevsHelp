@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { allUsers } from '../utils/APIRoutes';
+import { getUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 
 import Userlist from '../components/Userlist';
@@ -10,25 +10,30 @@ import Userlist from '../components/Userlist';
 const Home = () => {
     const nav = useNavigate()
 
+
+    const [loggedInUser, setLoggedInUser] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {if (!localStorage.getItem('loggedInUser')) {
-        nav('/');
-    }}, []);
+    useEffect(async () => {
+        if (!localStorage.getItem('loggedInUser')) {
+            nav('/');
+        } else {
+            setLoggedInUser(await JSON.parse(localStorage.getItem('loggedInUser')))
+        }
+    }, []);
+
 
     useEffect(async () => {
-        const {data} = await axios.get(`${allUsers}`);
-        setUsers(data);
-        // console.log(data);
+        if (loggedInUser) {
+            const data = await axios.get(`${getUsersRoute}`)
+        }
     })
-
-    console.log(users);
 
     let navMenu
 
     if(showMenu) {
-        navMenu = <div><Userlist users={users}/></div>
+        navMenu = <div><Userlist/></div>
     }    
 
 
