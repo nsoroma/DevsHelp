@@ -53,5 +53,17 @@ const login = async (req, res, next) => {
     }
 }
 
+const getUsers = async (req, res, next) => {
+    try {
+        const users = await Users.find({ _id: { $ne: req.params.id } }).select([
+            '_id',
+            'username',
+        ]);
+        return res.json(users);
+    } catch (error) {
+        next(error);
+    }
+}
 
-module.exports = { register, login };
+
+module.exports = { register, login, getUsers };

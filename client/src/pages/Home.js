@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { allUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 
 import Userlist from '../components/Userlist';
@@ -9,25 +10,34 @@ import Userlist from '../components/Userlist';
 const Home = () => {
     const nav = useNavigate()
 
-
-    const [loggedInUser, setLoggedInUser] = useState(undefined);
+    const [userList, setUserList] = useState([]);
+    const [loggedInUser, setLoggedInUser] = useState({});
     const [showMenu, setShowMenu] = useState(false);
-
-
-    useEffect(async () => {
-        if (!localStorage.getItem('loggedInUser')) {
-            nav('/');
-        } else {
-            setLoggedInUser(await JSON.parse(localStorage.getItem('loggedInUser')))
-        }
-    }, []);
-
 
     let navMenu
 
     if(showMenu) {
         navMenu = <div><Userlist/></div>
     }    
+
+  
+
+    useEffect(async () => {
+        if (!localStorage.getItem('loggedInUser')) {
+            nav('/');
+        } else {
+            setLoggedInUser(
+                await JSON.parse(localStorage.getItem('loggedInUser'))
+            )
+        };
+    }, [])
+
+
+    useEffect(async () => {
+        const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
+        setUserList(data.data);
+    }, [])
+
 
 
     return (
@@ -52,6 +62,8 @@ const Home = () => {
                     </div>
                 </div>
             </div> */}
+
+
             <div id='sidebar'>
                 <Userlist />
             </div>
@@ -59,7 +71,6 @@ const Home = () => {
 
             {navMenu}
 
-            
 
             <div id="message-board">
                 <header id="message-header">
