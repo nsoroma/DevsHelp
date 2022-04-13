@@ -2,7 +2,7 @@ const Users = require('../models/user-model');
 const bcrypt = require('bcrypt');
 
 
-module.exports.register = async (req, res, next) => {
+const register = async (req, res, next) => {
     try {
         const { username, password } = req.body;
 
@@ -26,3 +26,5 @@ module.exports.register = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports = register;

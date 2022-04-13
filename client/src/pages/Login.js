@@ -38,7 +38,7 @@ const Login = () => {
                 <h1>Welcome to DevsHelp</h1>
             </header>
 
-            <secition id="login-section">
+            <section id="login-section">
 
                 <div id="login-tagline">
                     <h3>A Chat Site Where <span className='login-orange-text'>Developers</span> Help <span className='login-orange-text'>Developers</span></h3>
@@ -61,7 +61,7 @@ const Login = () => {
                         <h3 className='login-title'>Sign Up</h3>
 
                         <p className='login-username'>Username</p>
-                        <input className='login-input' name='email' onChange={(e) => handleChange(e)}></input>
+                        <input className='login-input' name='username' onChange={(e) => handleChange(e)}></input>
 
                         <p className='login-password'>Password</p>
                         <input className='login-input' type="password" name='password' onChange={(e) => handleChange(e)}></input>
@@ -69,7 +69,7 @@ const Login = () => {
                         <button className='login-button'>Sign Up</button>
                     </form>
                 </div>
-            </secition>
+            </section>
         </main>
     )
 };
