@@ -1,13 +1,251 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300&family=Lato&family=Ubuntu:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Heebo', sans-serif;
+    /* height: 100%; */
+    width: 100%;
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+
+:root {
+    --main-color: #001524;
+    --secondary-color: #15616D;
+    --accent-color: #FF7D00;
+    --off-white: #fffff2
+}
+
+/* Login */
+
+
+#login-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 100%; */
+    
+}
+
+#login-main header {
+    /* width: 100vw; */
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    background-color: var(--main-color);
+    color: var(--off-white);
+}
+
+#login-main header h1 {
+    padding: 2.5%;
+    font-size: 3rem;
+}
+
+#login-section {
+    margin: 2.5%;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+#login-tagline {
+    width: 100%;
+    max-height: 20vh;
+    padding: 2%;
+    text-align: center;
+}
+
+#login-tagline {
+    font-size: 2rem;
+}
+
+#login-form-div {
+    /* width: 100%; */
+    max-width: 75%;
+    display: flex;
+    align-self: center;
+    justify-content: space-around;
+    margin: 2%
+}
+
+#login-form-div form {
+    max-height: 50vh;
+    margin: 1%;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-style: solid;
+    border-bottom-color: var(--accent-color);
+}
+
+.login-orange-text {
+    color: var(--accent-color);
+}
+
+.login-title {
+    margin: 10%;
+    font-size: 1.8rem;
+}
+
+.login-username{
+    margin: 2%;
+    font-size: 1.3rem;
+}
+
+.login-password {
+    margin: 2%;
+    font-size: 1.3rem;
+}
+
+.login-input {
+    width: 90%;
+    margin: 2.5%;
+    font-size: 1.3rem;
+    text-align: center;
+    padding: 2%;
+}
+
+.login-button {
+  margin: 5%;
+  background-color: var(--secondary-color); /* Green */
+  border: none;
+  color: var(--off-white);
+  padding: 2% 3%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.2rem;
+}
+
+.login-button:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 950px) {
+    #login-form-div {
+        flex-direction: column;
+    }
+}
+
+
+
+/* Homepage */
+
+#container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    border-right-style: solid;
+}
+
+#home-header {
+    background-color: var(--main-color);
+    color: var(--off-white);
+    padding: 3% 0%;
+    text-align: center;
+}
+
+#home-header h1 {
+    font-size: 2rem;
+}
+
+#userlist {
+    display: flex;
+    flex-direction: column;
+}
+
+#message-board {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 3px 3px inset;
+    position: relative;
+}
+
+#message-header {
+    display: flex;
+    background-color: var(--secondary-color);
+    color: var(--off-white);
+    padding: 3% 0% 3% 3%;
+}
+
+#nav-logo {
+    font-size: 2rem;
+    width: 10%;
+    align-items: center;
+    margin-right: 5%;
+    display: none;
+}
+
+#message-input {
+    width: 100%;
+    display: flex;
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+#text-box {
+    /* padding: 5%; */
+    font-size: 1.3rem;
+    padding: .5%;
+    resize: none;
+}
+
+#send-btn {
+    width: 15%;
+    background-color: var(--accent-color); /* Green */
+    border: none;
+    color: var(--off-white);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2rem;
+}
+
+.user {
+    width: 100%;
+    padding: 5% 0%;
+    border-bottom: solid;
+}
+
+.user h3 {
+    font-size: 1.8rem;
+    margin-left: 5%
+}
+
+.user h4 {
+    font-size: 1.2rem;
+    margin-left: 5%;
+}
+
+@media (max-width: 950px) {
+    #sidebar {
+        display: none;
+    }
+
+    #nav-logo {
+        display: flex;
+    }
+
+    #message-board {
+        box-shadow: none;
+    }
+
+    #send-btn {
+        width: 30%;
+    }
+
+    #home-header {
+        width: 100%;
+    }
 }

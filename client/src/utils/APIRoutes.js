@@ -1,0 +1,1 @@
+export const registerRoute = `/api/users/register`;
