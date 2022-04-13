@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { registerRoute } from '../utils/APIRoutes';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { registerRoute, loginRoute } from '../utils/APIRoutes';
 
 const Login = () => {
+    const nav = useNavigate();
+
+    useEffect(() => {if (localStorage.getItem('loggedInUser')) {
+        nav('/home');
+    }}, []);
 
     const [values, setValues] = useState({
         username: '',
@@ -13,23 +20,44 @@ const Login = () => {
         setValues({...values, [event.target.name]: event.target.value});
     };
 
-    const handleSubmit = async (event) => {
+    const registerSubmit = async (event) => {
+        event.preventDefault();
         const { username, password } = values
 
-        event.preventDefault();
 
-        const response = await fetch(registerRoute, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username,
-                password,
-            }),
+        const { data } = await axios.post(registerRoute, {
+            username,
+            password
         })
 
-        console.log(response);
+        if (data.status === false) {
+            alert('Usesrname is taken');
+        } else if (data.status === true) {
+            localStorage.setItem('loggedInUser', JSON.stringify(data.user));
+
+            nav('/home');
+        }
+    }
+
+
+    const loginSubmit = async (event) => {
+        event.preventDefault();
+        const { username, password } = values;
+
+        const { data } = await axios.post(loginRoute, {
+            username,
+            password
+        });
+
+        if (data.status === false) {
+            alert(`${data.msg}`);
+        } else if (data.status === true) {
+            localStorage.setItem('loggedInUser', JSON.stringify(data.user));
+
+            nav('/home');
+        }
+
+
     }
 
     return (
@@ -45,19 +73,19 @@ const Login = () => {
                 </div>
 
                 <div id="login-form-div">
-                    <form>
+                    <form action='' onSubmit={(event) => loginSubmit(event)}>
                         <h3 className='login-title'>Log In</h3>
 
                         <p className='login-username'>Username</p>
-                        <input className='login-input'></input>
+                        <input className='login-input' name='username' onChange={(e) => handleChange(e)}></input>
 
                         <p className='login-password'>Password</p>
-                        <input className='login-input' type="password"></input>
+                        <input className='login-input' type="password" name='password' onChange={(e) => handleChange(e)}></input>
 
                         <button className='login-button'>Log In</button>
                     </form>
 
-                    <form action='' onSubmit={(event) => handleSubmit(event)}>
+                    <form action='' onSubmit={(event) => registerSubmit(event)}>
                         <h3 className='login-title'>Sign Up</h3>
 
                         <p className='login-username'>Username</p>

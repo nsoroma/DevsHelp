@@ -9,17 +9,18 @@ const register = async (req, res, next) => {
         const usernameCheck = await Users.findOne({ username });
 
         if (usernameCheck) {
-            alert("Username already exists");
+            return res.json({ msg: "Username is taken", status: false})
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await Users.create({
+        const user  = await Users.create({
             username,
             password: hashedPassword,
         });
 
         delete user.password;
+
         return res.json({ status: true, user });
 
     } catch (error) {
@@ -27,4 +28,42 @@ const register = async (req, res, next) => {
     }
 }
 
-module.exports = register;
+const login = async (req, res, next) => {
+    try {
+        const { username, password } = req.body;
+
+        const user = await Users.findOne({ username });
+
+        if (!user) {
+            return res.json({ msg: "Incorrect Username", status: false })
+        }
+
+        const passwordValid = await bcrypt.compare(password, user.password);
+
+        if (!passwordValid) {
+            return res.json({ msg: "Incorrect Password", status: false });
+        }
+
+        delete user.password;
+
+        return res.json({ status: true, user });
+
+    } catch(error) {
+        next(error);
+    }
+}
+
+const getUsers = async (req, res, next) => {
+    try {
+        const users = await Users.find({ _id: { $ne: req.params.id } }).select([
+            '_id',
+            'username',
+        ]);
+        return res.json(users);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+module.exports = { register, login, getUsers };
