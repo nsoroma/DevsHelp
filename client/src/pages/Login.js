@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { registerRoute } from '../utils/APIRoutes';
 
 const Login = () => {
@@ -13,23 +14,25 @@ const Login = () => {
         setValues({...values, [event.target.name]: event.target.value});
     };
 
-    const handleSubmit = async (event) => {
+    const registerSubmit = async (event) => {
+        event.preventDefault();
         const { username, password } = values
 
-        event.preventDefault();
 
-        const response = await fetch(registerRoute, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username,
-                password,
-            }),
+        const { data } = await axios.post(registerRoute, {
+            username,
+            password
         })
 
-        console.log(response);
+        if (data.status === false) {
+            alert('Usesrname is taken');
+        } else if (data.status === true) {
+            alert('Username is free');
+        }
+
+
+
+        console.log(data);
     }
 
     return (
@@ -57,7 +60,7 @@ const Login = () => {
                         <button className='login-button'>Log In</button>
                     </form>
 
-                    <form action='' onSubmit={(event) => handleSubmit(event)}>
+                    <form action='' onSubmit={(event) => registerSubmit(event)}>
                         <h3 className='login-title'>Sign Up</h3>
 
                         <p className='login-username'>Username</p>
