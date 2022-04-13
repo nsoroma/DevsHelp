@@ -20,25 +20,30 @@ const Home = () => {
         navMenu = <div><Userlist/></div>
     }    
 
-  
+    useEffect(() => {
+        const setLoggedIn = async() => {
+            if (!localStorage.getItem('loggedInUser')) {
+                nav('/');
+            } else {
+                setLoggedInUser(await JSON.parse(localStorage.getItem('loggedInUser')))
+            }
+        }
 
-    useEffect(async () => {
-        if (!localStorage.getItem('loggedInUser')) {
-            nav('/');
-        } else {
-            setLoggedInUser(
-                await JSON.parse(localStorage.getItem('loggedInUser'))
-            )
-        };
+        setLoggedIn().catch(console.error);
     }, [])
 
+    console.log(loggedInUser._id);
 
-    useEffect(async () => {
-        const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
-        setUserList(data.data);
-    }, [])
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
+            setUserList(data.data);
+        }
 
+        fetchUsers().catch(console.error);
+    }, [loggedInUser._id])
 
+    console.log(userList);
 
     return (
         <div id='container'>
