@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { getUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 
 import Userlist from '../components/Userlist';
@@ -13,7 +12,7 @@ const Home = () => {
 
     const [loggedInUser, setLoggedInUser] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
-    const [users, setUsers] = useState([]);
+
 
     useEffect(async () => {
         if (!localStorage.getItem('loggedInUser')) {
@@ -23,12 +22,6 @@ const Home = () => {
         }
     }, []);
 
-
-    useEffect(async () => {
-        if (loggedInUser) {
-            const data = await axios.get(`${getUsersRoute}`)
-        }
-    })
 
     let navMenu
 
