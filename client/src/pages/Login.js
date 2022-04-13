@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { registerRoute } from '../utils/APIRoutes';
+import { registerRoute, loginRoute } from '../utils/APIRoutes';
 
 const Login = () => {
     const nav = useNavigate();
+
+    useEffect(() => {if (localStorage.getItem('loggedInUser')) {
+        nav('/home');
+    }}, []);
 
     const [values, setValues] = useState({
         username: '',
@@ -35,6 +39,27 @@ const Login = () => {
         }
     }
 
+
+    const loginSubmit = async (event) => {
+        event.preventDefault();
+        const { username, password } = values;
+
+        const { data } = await axios.post(loginRoute, {
+            username,
+            password
+        });
+
+        if (data.status === false) {
+            alert(`${data.msg}`);
+        } else if (data.status === true) {
+            localStorage.setItem('loggedInUser', JSON.stringify(data.user));
+
+            nav('/home');
+        }
+
+
+    }
+
     return (
         <main id="login-main">
             <header>
@@ -48,14 +73,14 @@ const Login = () => {
                 </div>
 
                 <div id="login-form-div">
-                    <form>
+                    <form action='' onSubmit={(event) => loginSubmit(event)}>
                         <h3 className='login-title'>Log In</h3>
 
                         <p className='login-username'>Username</p>
-                        <input className='login-input'></input>
+                        <input className='login-input' name='username' onChange={(e) => handleChange(e)}></input>
 
                         <p className='login-password'>Password</p>
-                        <input className='login-input' type="password"></input>
+                        <input className='login-input' type="password" name='password' onChange={(e) => handleChange(e)}></input>
 
                         <button className='login-button'>Log In</button>
                     </form>
