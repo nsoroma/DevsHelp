@@ -4,20 +4,21 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js",
-      "watch": "nodemon",
-      "seed": "node seeders/seed.js"
+        "start": "node server.js",
+        "watch": "nodemon",
+        "seed": "node seeders/seed.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "apollo-server-express": "^3.6.2",
-      "express": "^4.17.3",
-      "graphql": "^16.3.0",
-      "mongoose": "^6.2.10"
+        "apollo-server-express": "^3.6.2",
+        "bcrypt": "^5.0.1",
+        "express": "^4.17.3",
+        "graphql": "^16.3.0",
+        "mongoose": "^6.2.10"
     },
     "devDependencies": {
-      "nodemon": "^2.0.3"
+        "nodemon": "^2.0.3"
     }
-  }
+}
