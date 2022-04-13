@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { registerRoute } from '../utils/APIRoutes';
 
 const Login = () => {
+    const nav = useNavigate();
 
     const [values, setValues] = useState({
         username: '',
@@ -27,12 +29,10 @@ const Login = () => {
         if (data.status === false) {
             alert('Usesrname is taken');
         } else if (data.status === true) {
-            alert('Username is free');
+            localStorage.setItem('loggedInUser', JSON.stringify(data.user));
+
+            nav('/home');
         }
-
-
-
-        console.log(data);
     }
 
     return (
