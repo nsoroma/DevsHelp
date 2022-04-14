@@ -41,29 +41,26 @@ const Home = () => {
             fetchUsers().catch(console.error);
     }, [loggedInUser._id])
 
+
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
-    };
-
-
+    }
     
     if(showMenu) {
         navMenu= <Userlist users={userList}/>
     }
 
 
-    const testArr = [{_id: '6256fc0a79628dad27f555f7', username: 'testuser'}, {_id: '6257034425d67b85e5061f8d', username: 'johnclimie1'}, {_id: '62570439d2c46d2e24aaed4e', username: 'johnclimie2'}, {_id: '625738ce51446a5088ec3bc7', username: 'johnclimie6'}]
     return (
         <div id='container'>
 
             <div id='sidebar'>
                 <div>
-                    <Userlist users={userList}/>
+                    <Userlist users={userList} switchChat={handleChatChange} />
                 </div>
             </div>
 
             {navMenu}
-
 
             <div id="message-board">
                 <header id="message-header">

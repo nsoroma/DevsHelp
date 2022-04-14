@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 
 
-const Userlist = (props) => {
+const Userlist = ({ users, switchChat }) => {
 
+    const switchCurrentchat = (user) => {
+        switchChat(user);
+    }
 
     return (
             <div>
@@ -13,34 +16,14 @@ const Userlist = (props) => {
                 </div>
 
                 <div id='userlist'>
-                    {/* {props.map((prop) => {
-                        {console.log(props.length)}
-                        return (
-                            <div className='user'>
-                                <h3>{prop.username}</h3>
-                            </div>
-                        )
-                    })} */}
 
-                    {props.users.map((user) => {
+                    {users.map((user) => {
                         return (
-                            <div className='user'>
+                            <div key={user._id} className='user' onClick={() => switchCurrentchat(user)} >
                                 <h3>{user.username}</h3>
                             </div>
                         )
                     })}
-                    {/* <div className='user'>
-                        <h3>User</h3>
-                        <h4>Skilled in HTML, CSS</h4>
-                    </div>
-                    <div className='user'>
-                        <h3>User 2</h3>
-                        <h4>Skilled in React.js</h4>
-                    </div>
-                    <div className='user'>
-                        <h3>User 3</h3>
-                        <h4>Skilled in Node.js</h4>
-                    </div> */}
                 </div>
             </div>
     )
