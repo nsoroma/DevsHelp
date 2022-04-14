@@ -16,9 +16,25 @@ const Home = () => {
 
     let navMenu
 
-    // if(showMenu) {
-    //     navMenu = <div><Userlist/></div>
-    // }    
+    if(showMenu) {
+        navMenu = <div>
+            <div>
+                <div id='home-header'>
+                    <h1>DevsHelp</h1>
+                </div>
+
+                <div id='userlist'>
+                    {userList.map((user) => {
+                        return (
+                            <div className='user'>
+                                <h3>{user.username}</h3>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        </div>
+    }    
 
     useEffect(() => {
         const setLoggedIn = async() => {
@@ -42,58 +58,29 @@ const Home = () => {
     }, [loggedInUser._id])
 
 
-    const testArr = userList;
     return (
         <div id='container'>
-            {/* <div id='sidebar'>
-                <div id='home-header'>
-                    <h1>DevsHelp</h1>
-                </div>
 
-                <div id='userlist'>
-                    <div class='user'>
-                        <h3>User</h3>
-                        <h4>Skilled in HTML, CSS</h4>
-                    </div>
-                    <div class='user'>
-                        <h3>User 2</h3>
-                        <h4>Skilled in React.js</h4>
-                    </div>
-                    <div class='user'>
-                        <h3>User 3</h3>
-                        <h4>Skilled in Node.js</h4>
-                    </div>
-                </div>
-            </div> */}
-            {/* {console.log(userList)}; */}
-            {console.log(testArr)}
-
-            {testArr.map((user) => {
-                console.log(user.username);
-            })}
 
 
             <div id='sidebar'>
                 <div>
-                <div id='home-header'>
-                    <h1>DevsHelp</h1>
-                </div>
+                    <div id='home-header'>
+                        <h1>DevsHelp</h1>
+                    </div>
 
-                <div id='userlist'>
-                    {testArr.map((user) => {
-                        return (
-                            <div className='user'>
-                                <h3>{user.username}</h3>
-                            </div>
-                        )
-                    })}
+                    <div id='userlist'>
+                        {userList.map((user) => {
+                            return (
+                                <div className='user'>
+                                    <h3>{user.username}</h3>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-            </div>
-
-            
-            
-
+                                    
             {navMenu}
 
 
