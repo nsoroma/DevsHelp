@@ -15,7 +15,8 @@ const Home = () => {
     const [currentChat, setCurrentChat] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
 
-    let navMenu    
+    let navMenu;
+    let heading; 
 
 
     useEffect(() => {       
@@ -50,6 +51,12 @@ const Home = () => {
         navMenu= <Userlist users={userList}/>
     }
 
+    if (currentChat === undefined) {
+        heading = <h1>Select someome to speak to!</h1>
+    } else if (currentChat !== undefined) {
+        heading=<h1>You are speaking with {currentChat.username}</h1>
+    }
+
 
     return (
         <div id='container'>
@@ -67,7 +74,7 @@ const Home = () => {
                     <span id="nav-logo">
                         <FontAwesomeIcon icon={ faBars } onClick={() => setShowMenu(!showMenu)} />
                     </span>
-                    <h1>You are now talking to johnclimie</h1>
+                    {heading}
                 </header>
 
 

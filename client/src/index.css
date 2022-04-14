@@ -163,6 +163,7 @@
 #userlist {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 #message-board {
@@ -216,6 +217,10 @@
     width: 100%;
     padding: 5% 0%;
     border-bottom: solid;
+}
+
+.user:hover {
+    cursor: pointer
 }
 
 .user h3 {
