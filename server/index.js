@@ -18,8 +18,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-// app.use(routes);
-
 app.use('/api/users', userRoutes);
 app.use('/api/msgs', msgRoutes);
 
