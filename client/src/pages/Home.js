@@ -16,9 +16,9 @@ const Home = () => {
 
     let navMenu
 
-    if(showMenu) {
-        navMenu = <div><Userlist/></div>
-    }    
+    // if(showMenu) {
+    //     navMenu = <div><Userlist/></div>
+    // }    
 
     useEffect(() => {
         const setLoggedIn = async() => {
@@ -32,8 +32,6 @@ const Home = () => {
         setLoggedIn().catch(console.error);
     }, [])
 
-    console.log(loggedInUser._id);
-
     useEffect(() => {
         const fetchUsers = async () => {
             const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
@@ -43,8 +41,8 @@ const Home = () => {
         fetchUsers().catch(console.error);
     }, [loggedInUser._id])
 
-    console.log(userList);
 
+    const testArr = userList;
     return (
         <div id='container'>
             {/* <div id='sidebar'>
@@ -67,12 +65,34 @@ const Home = () => {
                     </div>
                 </div>
             </div> */}
+            {/* {console.log(userList)}; */}
+            {console.log(testArr)}
+
+            {testArr.map((user) => {
+                console.log(user.username);
+            })}
 
 
             <div id='sidebar'>
-                <Userlist />
+                <div>
+                <div id='home-header'>
+                    <h1>DevsHelp</h1>
+                </div>
+
+                <div id='userlist'>
+                    {testArr.map((user) => {
+                        return (
+                            <div className='user'>
+                                <h3>{user.username}</h3>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
             </div>
 
+            
+            
 
             {navMenu}
 

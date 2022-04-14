@@ -9,6 +9,13 @@ const Userlist = (users) => {
                 </div>
 
                 <div id='userlist'>
+                    {/* {users.map((user) => {
+                        return (
+                            <div className='user'>
+                                <h3>{user.username}</h3>
+                            </div>
+                        )
+                    })} */}
                     <div className='user'>
                         <h3>User</h3>
                         <h4>Skilled in HTML, CSS</h4>
