@@ -2,8 +2,10 @@ const Msgs = require('../models/message-model');
 
 const getMsgs = async (req, res, next) => {
     try {
-        const { sender, receiver } = req.body;
+        // const { sender, receiver } = req.body;
 
+        const sender = "6256fc0a79628dad27f555f7";
+        const receiver = "johnclimie";
         const msgs = await Msgs.find({
             users: {
                 $all: [sender, receiver],
@@ -12,7 +14,7 @@ const getMsgs = async (req, res, next) => {
 
         const shownMessages = msgs.map((msg) => {
             return {
-                fromSelf: msg.sender.toString() === send,
+                fromSelf: msg.userSender.toString() === sender,
                 message: msg.message.text,
             };
         });

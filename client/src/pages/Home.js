@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Userlist  from '../components/Userlist';
 import Noneselected from '../components/Noneselected'
 import Chatlog from '../components/Chatlog';
+import Input from '../components/Input';
 
 const Home = () => {
     const nav = useNavigate()
@@ -16,6 +17,7 @@ const Home = () => {
     const [loggedInUser, setLoggedInUser] = useState({});
     const [currentChat, setCurrentChat] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
+    const [msg, setMsg] = useState('');
 
     let navMenu;
     let heading; 
@@ -49,6 +51,13 @@ const Home = () => {
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
     }
+
+    const handleMsgChange = (event) => {
+        event.preventDefault();
+        if (msg.length > 0) {
+            
+        }
+    }
     
     if(showMenu) {
         navMenu= <Userlist users={userList} switchChat={handleChatChange}/>
@@ -60,7 +69,7 @@ const Home = () => {
 
     } else if (currentChat !== undefined) {
         heading=<h1>You are speaking with {currentChat.username}</h1>
-        chatContainer = <Chatlog />
+        chatContainer = <Chatlog currentChat={currentChat}/>
     }
 
 
@@ -85,10 +94,6 @@ const Home = () => {
 
                 {chatContainer}
 
-                <div id='message-input'>
-                    <textarea id='text-box' rows="3"></textarea>
-                    <button id='send-btn'>Send</button>
-                </div>
             </div>
         </div>
     )
