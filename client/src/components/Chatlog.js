@@ -25,13 +25,11 @@ const Chatlog = ({ currentChat }) => {
         fetchData();
     }, [currentChat])
     
+    // Posts messages to API - WORKS
     const handleMsgSender = async (msg) => {
         const data = await JSON.parse(
             localStorage.getItem('loggedInUser')
         );
-
-        console.log(msg);
-
         await axios.post(sendMsgRoute, {
             sender: data._id,
             receiver: currentChat._id,
@@ -42,15 +40,18 @@ const Chatlog = ({ currentChat }) => {
         msgArr.push({ fromSelf: true, message: msg});
         setMsgs(msgArr);
     }
-
     console.log(msgs);
+
     return (
         <>
-            <div>
-                <div>
+
                     <h1>Chatlog</h1>
-                </div>
-            </div>
+                    {msgs.map((msg) => {
+                        return (
+                            <div key={msg._id}><p>{msg.message}</p></div>
+                        )
+                    })}
+
 
             
             <Input handleMsgSender={handleMsgSender}/>

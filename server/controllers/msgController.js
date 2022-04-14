@@ -12,6 +12,7 @@ const getMsgs = async (req, res, next) => {
 
         const shownMessages = msgs.map((msg) => {
             return {
+                _id: msg._id,
                 fromSelf: msg.userSender.toString() === sender,
                 message: msg.message.text,
             };
