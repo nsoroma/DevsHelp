@@ -5,24 +5,29 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { allUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 
-import Userlist from '../components/Userlist';
+import Userlist  from '../components/Userlist';
+import Noneselected from '../components/Noneselected'
+import Chatlog from '../components/Chatlog';
+import Input from '../components/Input';
 
 const Home = () => {
     const nav = useNavigate()
 
     const [userList, setUserList] = useState([]);
     const [loggedInUser, setLoggedInUser] = useState({});
+    const [currentChat, setCurrentChat] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
+    const [msg, setMsg] = useState('');
 
-    let navMenu
+    let navMenu;
+    let heading; 
+    let chatContainer;
 
-    if(showMenu) {
-        navMenu = <div><Userlist/></div>
-    }    
 
-    useEffect(() => {
+    useEffect(() => {       
         const setLoggedIn = async() => {
             if (!localStorage.getItem('loggedInUser')) {
+
                 nav('/');
             } else {
                 setLoggedInUser(await JSON.parse(localStorage.getItem('loggedInUser')))
@@ -32,68 +37,63 @@ const Home = () => {
         setLoggedIn().catch(console.error);
     }, [])
 
-    console.log(loggedInUser._id);
-
     useEffect(() => {
-        const fetchUsers = async () => {
-            const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
-            setUserList(data.data);
-        }
+            const fetchUsers = async () => {
 
-        fetchUsers().catch(console.error);
+                const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
+                setUserList(data.data);
+            }
+    
+            fetchUsers().catch(console.error);
     }, [loggedInUser._id])
 
-    console.log(userList);
+
+    const handleChatChange = (chat) => {
+        setCurrentChat(chat);
+    }
+
+    const handleMsgChange = (event) => {
+        event.preventDefault();
+        if (msg.length > 0) {
+            
+        }
+    }
+    
+    if(showMenu) {
+        navMenu= <Userlist users={userList} switchChat={handleChatChange}/>
+    }
+
+    if (currentChat === undefined) {
+        heading = <h1>Select someome to speak to!</h1>
+        chatContainer = <Noneselected />
+
+    } else if (currentChat !== undefined) {
+        heading=<h1>You are speaking with {currentChat.username}</h1>
+        chatContainer = <Chatlog currentChat={currentChat}/>
+    }
+
 
     return (
         <div id='container'>
-            {/* <div id='sidebar'>
-                <div id='home-header'>
-                    <h1>DevsHelp</h1>
-                </div>
-
-                <div id='userlist'>
-                    <div class='user'>
-                        <h3>User</h3>
-                        <h4>Skilled in HTML, CSS</h4>
-                    </div>
-                    <div class='user'>
-                        <h3>User 2</h3>
-                        <h4>Skilled in React.js</h4>
-                    </div>
-                    <div class='user'>
-                        <h3>User 3</h3>
-                        <h4>Skilled in Node.js</h4>
-                    </div>
-                </div>
-            </div> */}
-
 
             <div id='sidebar'>
-                <Userlist />
+                <div>
+                    <Userlist users={userList} switchChat={handleChatChange} />
+                </div>
             </div>
 
-
             {navMenu}
-
 
             <div id="message-board">
                 <header id="message-header">
                     <span id="nav-logo">
                         <FontAwesomeIcon icon={ faBars } onClick={() => setShowMenu(!showMenu)} />
                     </span>
-                    <h1>You are now talking to johnclimie</h1>
+                    {heading}
                 </header>
 
+                {chatContainer}
 
-                <div id='chatlog'>
-
-                </div>
-
-                <div id='message-input'>
-                    <textarea id='text-box' rows="3"></textarea>
-                    <button id='send-btn'>Send</button>
-                </div>
             </div>
         </div>
     )

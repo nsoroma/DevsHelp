@@ -163,6 +163,7 @@
 #userlist {
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 #message-board {
@@ -185,6 +186,10 @@
     align-items: center;
     margin-right: 5%;
     display: none;
+}
+
+#chatlog {
+    overflow: auto;
 }
 
 #message-input {
@@ -212,10 +217,19 @@
     font-size: 2rem;
 }
 
+#select-user {
+    text-align: center;
+    padding-top: 6%;
+}
+
 .user {
     width: 100%;
     padding: 5% 0%;
     border-bottom: solid;
+}
+
+.user:hover {
+    cursor: pointer
 }
 
 .user h3 {
