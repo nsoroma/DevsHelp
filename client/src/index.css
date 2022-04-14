@@ -217,6 +217,11 @@
     font-size: 2rem;
 }
 
+#select-user {
+    text-align: center;
+    padding-top: 6%;
+}
+
 .user {
     width: 100%;
     padding: 5% 0%;
