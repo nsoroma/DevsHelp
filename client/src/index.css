@@ -188,6 +188,10 @@
     display: none;
 }
 
+#chatlog {
+    overflow: auto;
+}
+
 #message-input {
     width: 100%;
     display: flex;

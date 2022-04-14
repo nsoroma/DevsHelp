@@ -5,7 +5,9 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { allUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 
-import Userlist from '../components/Userlist';
+import Userlist  from '../components/Userlist';
+import Noneselected from '../components/Noneselected'
+import Chatlog from '../components/Chatlog';
 
 const Home = () => {
     const nav = useNavigate()
@@ -17,6 +19,7 @@ const Home = () => {
 
     let navMenu;
     let heading; 
+    let chatContainer;
 
 
     useEffect(() => {       
@@ -48,13 +51,16 @@ const Home = () => {
     }
     
     if(showMenu) {
-        navMenu= <Userlist users={userList}/>
+        navMenu= <Userlist users={userList} switchChat={handleChatChange}/>
     }
 
     if (currentChat === undefined) {
         heading = <h1>Select someome to speak to!</h1>
+        chatContainer = <Noneselected />
+
     } else if (currentChat !== undefined) {
         heading=<h1>You are speaking with {currentChat.username}</h1>
+        chatContainer = <Chatlog />
     }
 
 
@@ -77,10 +83,7 @@ const Home = () => {
                     {heading}
                 </header>
 
-
-                <div id='chatlog'>
-
-                </div>
+                {chatContainer}
 
                 <div id='message-input'>
                     <textarea id='text-box' rows="3"></textarea>
