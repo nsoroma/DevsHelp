@@ -12,33 +12,16 @@ const Home = () => {
 
     const [userList, setUserList] = useState([]);
     const [loggedInUser, setLoggedInUser] = useState({});
+    const [currentChat, setCurrentChat] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
 
-    let navMenu
+    let navMenu    
 
-    if(showMenu) {
-        navMenu = <div>
-            <div>
-                <div id='home-header'>
-                    <h1>DevsHelp</h1>
-                </div>
 
-                <div id='userlist'>
-                    {userList.map((user) => {
-                        return (
-                            <div className='user'>
-                                <h3>{user.username}</h3>
-                            </div>
-                        )
-                    })}
-                </div>
-            </div>
-        </div>
-    }    
-
-    useEffect(() => {
+    useEffect(() => {       
         const setLoggedIn = async() => {
             if (!localStorage.getItem('loggedInUser')) {
+
                 nav('/');
             } else {
                 setLoggedInUser(await JSON.parse(localStorage.getItem('loggedInUser')))
@@ -49,38 +32,36 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
-            setUserList(data.data);
-        }
+            const fetchUsers = async () => {
 
-        fetchUsers().catch(console.error);
+                const data = await axios.get(`${allUsersRoute}/${loggedInUser._id}`);
+                setUserList(data.data);
+            }
+    
+            fetchUsers().catch(console.error);
     }, [loggedInUser._id])
 
+    const handleChatChange = (chat) => {
+        setCurrentChat(chat);
+    };
 
+
+    
+    if(showMenu) {
+        navMenu= <Userlist users={userList}/>
+    }
+
+
+    const testArr = [{_id: '6256fc0a79628dad27f555f7', username: 'testuser'}, {_id: '6257034425d67b85e5061f8d', username: 'johnclimie1'}, {_id: '62570439d2c46d2e24aaed4e', username: 'johnclimie2'}, {_id: '625738ce51446a5088ec3bc7', username: 'johnclimie6'}]
     return (
         <div id='container'>
 
-
-
             <div id='sidebar'>
                 <div>
-                    <div id='home-header'>
-                        <h1>DevsHelp</h1>
-                    </div>
-
-                    <div id='userlist'>
-                        {userList.map((user) => {
-                            return (
-                                <div className='user'>
-                                    <h3>{user.username}</h3>
-                                </div>
-                            )
-                        })}
-                    </div>
+                    <Userlist users={userList}/>
                 </div>
             </div>
-                                    
+
             {navMenu}
 
 

@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Userlist = (users) => {
+
+
+
+const Userlist = (props) => {
+
 
     return (
             <div>
@@ -9,14 +13,23 @@ const Userlist = (users) => {
                 </div>
 
                 <div id='userlist'>
-                    {/* {users.map((user) => {
+                    {/* {props.map((prop) => {
+                        {console.log(props.length)}
+                        return (
+                            <div className='user'>
+                                <h3>{prop.username}</h3>
+                            </div>
+                        )
+                    })} */}
+
+                    {props.users.map((user) => {
                         return (
                             <div className='user'>
                                 <h3>{user.username}</h3>
                             </div>
                         )
-                    })} */}
-                    <div className='user'>
+                    })}
+                    {/* <div className='user'>
                         <h3>User</h3>
                         <h4>Skilled in HTML, CSS</h4>
                     </div>
@@ -27,7 +40,7 @@ const Userlist = (users) => {
                     <div className='user'>
                         <h3>User 3</h3>
                         <h4>Skilled in Node.js</h4>
-                    </div>
+                    </div> */}
                 </div>
             </div>
     )
