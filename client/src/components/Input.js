@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-const Input = ({ handleSendMsg }) => {
+const Input = ({ handleMsgSender }) => {
     const [msg, setMsg] = useState("");
 
     const sendMsg = (event) => {
         event.preventDefault();
         if (msg.length >= 0) {
-            handleSendMsg(msg);
-            console.log(msg);
+            handleMsgSender(msg);
             setMsg("");
         }
     };

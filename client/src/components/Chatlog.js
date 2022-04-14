@@ -6,39 +6,42 @@ import { sendMsgRoute, getMsgRoute } from '../utils/APIRoutes';
 const Chatlog = ({ currentChat }) => {
     const [msgs, setMsgs] = useState([]);
 
-    console.log(currentChat);
-
-    // useEffect(async () => {
-    //     const data = await JSON.parse(
-    //         localStorage.getItem('loggedInUser')
-    //     );
-
-    //     const response = await axios.post(getMsgRoute, {
-    //         sender: data._id,
-    //         receiver: currentChat._id,
-    //     })
-
-    //     setMsgs(response.data);
-
-
-    // }, [currentChat]);
-
+    // Fetches messages from user signed in and user selected - WORKS
     useEffect(() => {
         async function fetchData() {
             const data = await JSON.parse(
                 localStorage.getItem('loggedInUser')
             );
-    
+
             const response = await axios.post(getMsgRoute, {
+
                 sender: data._id,
-                receiver: currentChat._id,
+                receiver: currentChat.username,
+
             })
-    
             setMsgs(response.data);
         }
 
         fetchData();
     }, [currentChat])
+    
+    const handleMsgSender = async (msg) => {
+        const data = await JSON.parse(
+            localStorage.getItem('loggedInUser')
+        );
+
+        console.log(msg);
+
+        await axios.post(sendMsgRoute, {
+            sender: data._id,
+            receiver: currentChat._id,
+            msg: msg,
+        });
+
+        const msgArr = [...msgs];
+        msgArr.push({ fromSelf: true, message: msg});
+        setMsgs(msgArr);
+    }
 
     console.log(msgs);
     return (
@@ -50,7 +53,7 @@ const Chatlog = ({ currentChat }) => {
             </div>
 
             
-            <Input />
+            <Input handleMsgSender={handleMsgSender}/>
         </>
     )
 }

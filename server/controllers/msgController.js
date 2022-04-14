@@ -2,10 +2,8 @@ const Msgs = require('../models/message-model');
 
 const getMsgs = async (req, res, next) => {
     try {
-        // const { sender, receiver } = req.body;
+        const { sender, receiver } = req.body;
 
-        const sender = "6256fc0a79628dad27f555f7";
-        const receiver = "johnclimie";
         const msgs = await Msgs.find({
             users: {
                 $all: [sender, receiver],
