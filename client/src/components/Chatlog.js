@@ -19,7 +19,10 @@ const Chatlog = ({ currentChat }) => {
                 receiver: currentChat.username,
 
             })
+
+
             setMsgs(response.data);
+
         }
 
         fetchData();
@@ -30,15 +33,17 @@ const Chatlog = ({ currentChat }) => {
         const data = await JSON.parse(
             localStorage.getItem('loggedInUser')
         );
-        await axios.post(sendMsgRoute, {
+
+        const response = await axios.post(sendMsgRoute, {
             sender: data._id,
             receiver: currentChat.username,
             msg: msg,
         });
 
         const msgArr = [...msgs];
-        msgArr.push({ fromSelf: true, message: msg});
+        msgArr.push({message: msg});
         setMsgs(msgArr);
+
     }
 
 
@@ -46,10 +51,22 @@ const Chatlog = ({ currentChat }) => {
         <>
 
                     <h1>Chatlog</h1>
-                    {msgs.map((msg) => {
+                    {/* {msgs.map((msg) => {
                         
                         return (
                             <div key={"key"+msg.message+Math.random()}><p>{msg.message}</p></div>
+                        )
+                    })} */}
+
+                    {msgs.map((msg) => {
+                        return (
+                            <div>
+                                <div className={`message ${msg.fromSelf ? "sent":"recieved"}`}>
+                                    <div className='msg-frame'>
+                                        <p>{msg.message}</p>
+                                    </div>
+                                </div>
+                            </div>
                         )
                     })}
 
