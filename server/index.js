@@ -20,6 +20,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
+app.use(cors())
 app.use('/api/users', userRoutes);
 app.use('/api/msgs', msgRoutes);
 
@@ -43,7 +44,7 @@ io.on('connection', (socket) => {
   socket.on('send-msg', (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit('msg-recieve', data.msg);
+      socket.to(sendUserSocket).emit('msg-recieve', data.message);
     }
   });
 });

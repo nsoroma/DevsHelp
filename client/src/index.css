@@ -125,6 +125,17 @@
     cursor: pointer;
 }
 
+.fromSelf {
+    width: 100%;
+    padding: 1%;
+    background-color: lightgrey;
+}
+
+.fromOther {
+    width: 100%;
+    padding: 1%;
+}
+
 @media (max-width: 950px) {
     #login-form-div {
         flex-direction: column;
@@ -169,7 +180,7 @@
 #message-board {
     display: flex;
     flex-direction: column;
-    box-shadow: 5px 3px 3px inset;
+    /* box-shadow: 5px 3px 3px inset; */
     position: relative;
 }
 
