@@ -10,7 +10,7 @@ const msgSchema = mongoose.Schema({
     users: Array,
     userSender: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User',
+        ref: 'Users',
         required: true
     }
 })
