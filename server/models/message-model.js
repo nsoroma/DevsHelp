@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Creates schema for messages
 const msgSchema = mongoose.Schema({
     message: {
         text: {
