@@ -4,8 +4,8 @@ const db = require('./config/connection');
 // const routes = require('./routes');
 const userRoutes = require('./routes/users');
 const msgRoutes = require('./routes/msgs');
-
 const app = express();
+const { send } = require('process');
 const PORT = 
 // process.env.PORT || 
 3001;
@@ -21,6 +21,4 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api/users', userRoutes);
 app.use('/api/msgs', msgRoutes);
 
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-});
+const server = app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));

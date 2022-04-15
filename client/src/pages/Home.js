@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import Userlist  from '../components/Userlist';
 import Noneselected from '../components/Noneselected'
 import Chatlog from '../components/Chatlog';
-import Input from '../components/Input';
 
 const Home = () => {
     const nav = useNavigate()
@@ -17,7 +16,6 @@ const Home = () => {
     const [loggedInUser, setLoggedInUser] = useState({});
     const [currentChat, setCurrentChat] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
-    const [msg, setMsg] = useState('');
 
     let navMenu;
     let heading; 
@@ -51,13 +49,6 @@ const Home = () => {
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
     }
-
-    const handleMsgChange = (event) => {
-        event.preventDefault();
-        if (msg.length > 0) {
-            
-        }
-    }
     
     if(showMenu) {
         navMenu= <Userlist users={userList} switchChat={handleChatChange}/>
@@ -69,7 +60,7 @@ const Home = () => {
 
     } else if (currentChat !== undefined) {
         heading=<h1>You are speaking with {currentChat.username}</h1>
-        chatContainer = <Chatlog currentChat={currentChat}/>
+        chatContainer = <Chatlog currentChat={currentChat} />
     }
 
 
