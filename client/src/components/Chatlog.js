@@ -32,7 +32,7 @@ const Chatlog = ({ currentChat }) => {
         );
         await axios.post(sendMsgRoute, {
             sender: data._id,
-            receiver: currentChat._id,
+            receiver: currentChat.username,
             msg: msg,
         });
 
@@ -40,15 +40,16 @@ const Chatlog = ({ currentChat }) => {
         msgArr.push({ fromSelf: true, message: msg});
         setMsgs(msgArr);
     }
-    console.log(msgs);
+
 
     return (
         <>
 
                     <h1>Chatlog</h1>
                     {msgs.map((msg) => {
+                        
                         return (
-                            <div key={msg._id}><p>{msg.message}</p></div>
+                            <div key={"key"+msg.message+Math.random()}><p>{msg.message}</p></div>
                         )
                     })}
 
