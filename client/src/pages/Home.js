@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { allUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
+import { io } from 'socket.io-client';
 
 import Userlist  from '../components/Userlist';
 import Noneselected from '../components/Noneselected'
@@ -12,6 +13,7 @@ import Input from '../components/Input';
 
 const Home = () => {
     const nav = useNavigate()
+    const socket = useRef();
 
     const [userList, setUserList] = useState([]);
     const [loggedInUser, setLoggedInUser] = useState({});
@@ -36,6 +38,14 @@ const Home = () => {
 
         setLoggedIn().catch(console.error);
     }, [])
+
+    useEffect(() => {
+        if (loggedInUser) {
+            socket.current = io('http://localhost:5000');
+
+            socket.current.emit('add-user', loggedInUser._id);
+        }
+    }, [loggedInUser])
 
     useEffect(() => {
             const fetchUsers = async () => {
@@ -69,7 +79,7 @@ const Home = () => {
 
     } else if (currentChat !== undefined) {
         heading=<h1>You are speaking with {currentChat.username}</h1>
-        chatContainer = <Chatlog currentChat={currentChat}/>
+        chatContainer = <Chatlog currentChat={currentChat} socket={socket} />
     }
 
 

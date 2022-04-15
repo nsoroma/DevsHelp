@@ -3,8 +3,9 @@ import Input from './Input';
 import axios from 'axios';
 import { sendMsgRoute, getMsgRoute } from '../utils/APIRoutes';
 
-const Chatlog = ({ currentChat }) => {
+const Chatlog = ({ currentChat, socket }) => {
     const [msgs, setMsgs] = useState([]);
+    const [incomingMsg, setIncomingMsg] = useState(null);
 
     // Fetches messages from user signed in and user selected - WORKS
     useEffect(() => {
@@ -36,10 +37,32 @@ const Chatlog = ({ currentChat }) => {
             msg: msg,
         });
 
+        socket.current.emit('send-msg', {
+            to: currentChat._id,
+            from: data._id,
+            message: msg,
+        })
+
         const msgArr = [...msgs];
         msgArr.push({ fromSelf: true, message: msg});
         setMsgs(msgArr);
-    }
+    };
+
+    useEffect(() => {
+        if (socket.current) {
+            socket.current.on('msg-recieve', (msg) => {
+                setIncomingMsg({fromSelf: false, message: 'test'})
+            })
+        }
+    }, []);
+
+    console.log(incomingMsg);
+
+    useEffect(() => {
+        incomingMsg && setMsgs((prev) => [...prev, incomingMsg]);
+    }, [incomingMsg]);
+
+    console.log(msgs);
 
 
     return (
