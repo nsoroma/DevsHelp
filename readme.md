@@ -11,7 +11,7 @@ This application is a MERN chat-messaging tool that provides web developers a co
 
 --- 
 
-![Chat-Room-Demo](images/chat-room-img.png)
+![Chat-Room-Demo](images/screenshot.png)
 
 ---
 
@@ -19,7 +19,7 @@ This application is a MERN chat-messaging tool that provides web developers a co
 
 [Description](#description)
     
-<!-- [How to Use](#how-to-use) -->
+[How to Use](#how-to-use)
 
 [Technology Used](#technology-used)
 
@@ -31,9 +31,13 @@ This application is a MERN chat-messaging tool that provides web developers a co
 
 ---
 
-<!-- ### How to Use:
+### How to Use:
 
---- -->
+Clone this application, run `npm run develop` and the browser will load the application.
+
+You could also go to the link to the deployed application, which is hosted by Heroku.
+
+---
 
 #### Technology Used:
 
@@ -43,8 +47,6 @@ This application is a MERN chat-messaging tool that provides web developers a co
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?logo=node.js&logoColor=wheat)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?logo=javascript&logoColor=%23F7DF1E)
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?logo=heroku&logoColor=wheat)
-![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)
 ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101)
 
@@ -52,7 +54,7 @@ This application is a MERN chat-messaging tool that provides web developers a co
 
 #### Link to Deployed App
 
-<!-- [DevsHelp - Heroku](<heroku-app-name>.herokuapp.com) -->
+[DevsHelp - Heroku](https://limitless-fortress-55717.herokuapp.com/)
 
 ---
 

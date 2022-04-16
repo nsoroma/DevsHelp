@@ -37,7 +37,7 @@ const server = app.listen(PORT, () => console.log(`🌍 Now listening on localho
 // Socket.io itegration, takes server as input and sets up at specified origin
 const io = socket(server, {
   cors:{
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:5000',
     credentials: true,
   },
 });
