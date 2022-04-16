@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-
-
-
+// Imports Dependencies
+import React from 'react';
 
 const Userlist = ({ users, switchChat }) => {
 
+    // Switches current chat
     const switchCurrentchat = (user) => {
         switchChat(user);
     }
 
+    // Returns HTML
     return (
             <div>
                 <div id='home-header'>
@@ -29,4 +29,5 @@ const Userlist = ({ users, switchChat }) => {
     )
 }
 
+// Exports component
 export default Userlist;

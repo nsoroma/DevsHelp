@@ -1,25 +1,30 @@
+// Imports all dependencies
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { registerRoute, loginRoute } from '../utils/APIRoutes';
 
 const Login = () => {
+    // Nav redirects page
     const nav = useNavigate();
 
+    // If logged in user exists, page redirects to home
     useEffect(() => {if (localStorage.getItem('loggedInUser')) {
         nav('/home');
     }}, []);
 
+    // Creates useStates
     const [values, setValues] = useState({
         username: '',
         password: ''
     });
 
-
+    // Creates handle for values in useStates
     const handleChange = (event) => {
         setValues({...values, [event.target.name]: event.target.value});
     };
 
+    // Registers a new user with username and password
     const registerSubmit = async (event) => {
         event.preventDefault();
         const { username, password } = values
@@ -35,11 +40,13 @@ const Login = () => {
         } else if (data.status === true) {
             localStorage.setItem('loggedInUser', JSON.stringify(data.user));
 
+            // Redirects to home if registration works
             nav('/home');
         }
     }
 
 
+    // Logs in a user
     const loginSubmit = async (event) => {
         event.preventDefault();
         const { username, password } = values;
@@ -54,12 +61,14 @@ const Login = () => {
         } else if (data.status === true) {
             localStorage.setItem('loggedInUser', JSON.stringify(data.user));
 
+            // Redirects to home if log-in works
             nav('/home');
         }
 
 
     }
 
+    // Returns HTML
     return (
         <main id="login-main">
             <header>

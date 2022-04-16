@@ -1,3 +1,4 @@
+// Imports Dependencies
 import React, { useEffect, useState, } from 'react';
 import Input from './Input';
 import axios from 'axios';
@@ -5,10 +6,11 @@ import { sendMsgRoute, getMsgRoute } from '../utils/APIRoutes';
 import {v4 as uuid} from 'uuid';
 
 const Chatlog = ({ currentChat, socket }) => {
+    // Sets up useStates
     const [msgs, setMsgs] = useState([]);
     const [incomingMsg, setIncomingMsg] = useState(null);
 
-    // Fetches messages from user signed in and user selected - WORKS
+    // Fetches messages from user signed in and user selected
     useEffect(() => {
         async function fetchData() {
             if (currentChat) {
@@ -22,6 +24,7 @@ const Chatlog = ({ currentChat, socket }) => {
                     receiver: currentChat.username,
     
                 })
+                // Msgs are returned
                 setMsgs(response.data);
             }
         }
@@ -29,7 +32,7 @@ const Chatlog = ({ currentChat, socket }) => {
         fetchData();
     }, [currentChat])
     
-    // Posts messages to API - WORKS
+    // Posts messages to API when a user sends a message
     const handleMsgSender = async (msg) => {
         const data = await JSON.parse(
             localStorage.getItem('loggedInUser')
@@ -53,27 +56,24 @@ const Chatlog = ({ currentChat, socket }) => {
 
     };
 
+    // sets incoming msg based on what message is recieved through socket.io
     useEffect(() => {
         if (socket.current) {
             socket.current.on('msg-recieve', (message) => {
-                // console.log(msg);
                 setIncomingMsg({fromSelf: false, message: message})
             })
         }
     }, []);
 
 
+    // Merges msgs array with incomingMsg
     useEffect(() => {
         incomingMsg && setMsgs((prev) => [...prev, incomingMsg]);
     }, [incomingMsg]);
 
-    console.log(msgs);
 
 
-    // let statement;
-
-
-
+    // Returns HTML
     return (
         <>
                     {msgs.map((msg) => {
@@ -91,5 +91,5 @@ const Chatlog = ({ currentChat, socket }) => {
     )
 }
 
-
+// Exports component
 export default Chatlog

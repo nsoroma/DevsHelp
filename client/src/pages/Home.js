@@ -1,3 +1,4 @@
+// Imoprts all dependencies 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,26 +7,30 @@ import { allUsersRoute } from '../utils/APIRoutes';
 import { useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 
+// Imports all components 
 import Userlist  from '../components/Userlist';
 import Noneselected from '../components/Noneselected'
 import Chatlog from '../components/Chatlog';
-import Input from '../components/Input';
 
 const Home = () => {
+    // Nav redirects page
     const nav = useNavigate()
+    // Sets up socket.io on client side
     const socket = useRef();
 
+    // Creates useStates 
     const [userList, setUserList] = useState([]);
     const [loggedInUser, setLoggedInUser] = useState({});
     const [currentChat, setCurrentChat] = useState(undefined);
     const [showMenu, setShowMenu] = useState(false);
-    const [msg, setMsg] = useState('');
 
+    // Pre-declares variables
     let navMenu;
     let heading; 
     let chatContainer;
 
 
+    // Stores current logged in user
     useEffect(() => {       
         const setLoggedIn = async() => {
             if (!localStorage.getItem('loggedInUser')) {
@@ -39,6 +44,7 @@ const Home = () => {
         setLoggedIn().catch(console.error);
     }, [])
 
+    // If a user is logged in, the user is added into the online user array
     useEffect(() => {
         if (loggedInUser) {
             socket.current = io('http://localhost:5000');
@@ -47,6 +53,7 @@ const Home = () => {
         }
     }, [loggedInUser])
 
+    // Retrieves all users for a contacts list
     useEffect(() => {
             const fetchUsers = async () => {
 
@@ -57,32 +64,29 @@ const Home = () => {
             fetchUsers().catch(console.error);
     }, [loggedInUser._id])
 
-
+    // Changes chat
     const handleChatChange = (chat) => {
         setCurrentChat(chat);
     }
-
-    const handleMsgChange = (event) => {
-        event.preventDefault();
-        if (msg.length > 0) {
-            
-        }
-    }
     
+    // Allows access to sidebar for mobile media queries
     if(showMenu) {
         navMenu= <Userlist users={userList} switchChat={handleChatChange}/>
     }
 
+    // Chat container displays "No user has been selected" if currentChat is not defined
     if (currentChat === undefined) {
         heading = <h1>Select someome to speak to!</h1>
         chatContainer = <Noneselected />
 
+    // Shows current chat for user
     } else if (currentChat !== undefined) {
         heading=<h1>You are speaking with {currentChat.username}</h1>
         chatContainer = <Chatlog currentChat={currentChat} socket={socket} />
     }
 
 
+    // Returns HTML
     return (
         <div id='container'>
 
@@ -109,4 +113,5 @@ const Home = () => {
     )
 };
 
+// Exports home page
 export default Home;
