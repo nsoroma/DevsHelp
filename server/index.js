@@ -12,12 +12,11 @@ const msgRoutes = require('./routes/msgs');
 
 // Sets up express and PORT
 const app = express();
-const PORT = 
-// process.env.PORT || 
-5000;
+const PORT = process.env.PORT || 5000;
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 // If we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
