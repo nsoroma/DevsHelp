@@ -38,7 +38,7 @@ const server = app.listen(PORT, () => console.log(`🌍 Now listening on localho
 const io = socket(server, {
   cors:{
     // origin: 'http://localhost:3000',
-    origin: 'http://limitless-fortress-55717.herokuapp.com',
+    origin: 'https://limitless-fortress-55717.herokuapp.com',
     credentials: true,
   },
 });
