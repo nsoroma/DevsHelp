@@ -47,7 +47,7 @@ const Home = () => {
     // If a user is logged in, the user is added into the online user array
     useEffect(() => {
         if (loggedInUser) {
-            socket.current = io('http://localhost:5000');
+            socket.current = io('http://limitless-fortress-55717.herokuapp.com');
 
             socket.current.emit('add-user', loggedInUser._id);
         }
